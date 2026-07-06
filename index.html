@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3BX Tech Solutions - Smart Notes</title>
+    <style>
+        :root {
+            --primary: #0f4c75;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --accent: #ff9500;
+            --text: #333;
+            --gray: #666;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a2e 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            animation: pulse 8s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 800; }
+        .hero .tagline { font-size: 1.3rem; opacity: 0.9; margin-bottom: 0.5rem; }
+        .hero .app-name {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,149,0,0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* App Icon */
+        .app-icon-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 28px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .app-icon-container img { width: 100px; height: 100px; }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--dark); }
+        .feature-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* Screenshots */
+        .screenshots {
+            background: var(--dark);
+            padding: 5rem 2rem;
+        }
+        .screenshots .section-title { color: white; }
+        .screenshot-row {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .screenshot {
+            width: 280px;
+            background: #1a1a2e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+        }
+        .screenshot:hover { transform: scale(1.03); }
+        .screenshot-img {
+            width: 100%;
+            height: 500px;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .screenshot-label {
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Mock UI for screenshots */
+        .mock-notes {
+            width: 90%;
+            height: 90%;
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .mock-note-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .mock-note-card .pin { color: #ff9500; font-size: 12px; }
+        .mock-note-card h4 { font-size: 14px; margin: 4px 0; color: #0a0a0a; }
+        .mock-note-card p { font-size: 11px; color: #666; }
+        .mock-note-card .meta { font-size: 9px; color: #999; margin-top: 4px; display: flex; justify-content: space-between; }
+
+        .mock-calc {
+            width: 90%;
+            height: 90%;
+            background: #0a0a0a;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        .mock-calc-display {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            color: white;
+            font-size: 36px;
+            font-weight: 200;
+            padding: 20px;
+        }
+        .mock-calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .mock-calc-btn {
+            height: 44px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        .mock-btn-num { background: #1a1a2e; }
+        .mock-btn-op { background: #0f4c75; }
+        .mock-btn-eq { background: #ff9500; }
+        .mock-btn-cl { background: #2a2a3e; color: #ff9500; }
+
+        .mock-secret {
+            width: 90%;
+            height: 90%;
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .mock-secret-header { color: white; font-size: 14px; text-align: center; margin-top: 30px; }
+        .mock-secret-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 10px;
+        }
+        .mock-app-icon {
+            aspect-ratio: 1;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a2e 100%);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta p { opacity: 0.9; margin-bottom: 2rem; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-primary { background: white; color: var(--primary); }
+        . btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--gray);
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        footer .company-name { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        footer a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .tagline { font-size: 1rem; }
+            .section { padding: 3rem 1rem; }
+            .section-title { font-size: 1.6rem; }
+            .screenshot { width: 100%; max-width: 320px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="app-icon-container">
+                <img src="assets/icon.png" alt="Smart Notes App Icon">
+            </div>
+            <div class="hero-badge">
+                <span>📱 Now on Android & iOS</span>
+            </div>
+            <h1>3BX Tech Solutions</h1>
+            <p class="tagline">Building smart apps for everyday life</p>
+            <div class="app-name">📝 Smart Notes</div>
+            <p style="margin-top: 1.5rem; opacity: 0.8; max-width: 500px; margin-left: auto; margin-right: auto;">
+                A beautifully designed notes and calculator app with a secret — your private workspace
+                for social media, hidden behind a simple PIN.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Smart Notes -->
+    <section class="section">
+        <h2 class="section-title">About Smart Notes</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--gray); font-size: 1.1rem;">
+            Smart Notes is more than just a notebook. On the surface, it's a polished notes app
+            with a built-in calculator. But enter your secret 6-digit PIN on the calculator and press "=",
+            and a hidden workspace opens — giving you instant access to all your social platforms
+            in one private, secure place.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #e3f2fd;">
+                    📝
+                </div>
+                <h3>Smart Notes</h3>
+                <p>Create, edit, pin, and organize notes with categories. Word count, search, and sort.
+                A fully functional notes app that's genuinely useful.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #fff3e0;">
+                    🧮
+                </div>
+                <h3>Working Calculator</h3>
+                <p>A real calculator with full arithmetic support. Type your secret PIN and press "="
+                to unlock the hidden workspace. No one will know.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #e8f5e9;">
+                    🔒
+                </div>
+                <h3>Private Workspace</h3>
+                <p>Access 30+ social platforms — Facebook, Zalo, WhatsApp, Telegram, Instagram, Discord,
+                TikTok and more — all in one secure, hidden space.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #fce4ec;">
+                    🛡️
+                </div>
+                <h3>Auto-Hide Security</h3>
+                <p>The hidden workspace instantly disappears when you turn off your screen or switch apps.
+                No one can see what you were doing.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #f3e5f5;">
+                    🌍
+                </div>
+                <h3>21 Languages</h3>
+                <p>English, Vietnamese, Chinese, Japanese, Korean, Spanish, French, German, Hindi, Arabic,
+                and more. Auto-detects your device language.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon" style="background: #e0f7fa;">
+                    ⚡
+                </div>
+                <h3>Fast & Lightweight</h3>
+                <p>Only 36MB. Built with React Native and Hermes engine for maximum speed.
+                Ad-blocker injected into WebViews for faster page loads.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots">
+        <h2 class="section-title">See It In Action</h2>
+        <div class="screenshot-row">
+
+            <!-- Notes Screenshot -->
+            <div class="screenshot">
+                <div class="screenshot-img">
+                    <div class="mock-notes">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 18px; font-weight: 700; color: #0a0a0a;">Notes</span>
+                            <span style="font-size: 11px; color: #888;">3 notes 🔧 🌐</span>
+                        </div>
+                        <div style="background: #e8e8e8; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                            <span style="font-size: 12px;">🔍</span>
+                            <span style="font-size: 12px; color: #555;">Search</span>
+                        </div>
+                        <div class="mock-note-card" style="border-left: 3px solid #ff9500;">
+                            <span class="pin">📌</span>
+                            <h4>📖 How to Use This App</h4>
+                            <p>Welcome to Smart Notes! This app has a hidden workspace...</p>
+                            <div class="meta">
+                                <span>Jul 5, 2:30 PM</span>
+                                <span>42 words</span>
+                            </div>
+                        </div>
+                        <div class="mock-note-card">
+                            <h4>Meeting Notes</h4>
+                            <p>Q3 planning discussion with the team...</p>
+                            <div class="meta">
+                                <span>Jul 4, 10:00 AM</span>
+                                <span>128 words</span>
+                            </div>
+                        </div>
+                        <div class="mock-note-card">
+                            <h4>Grocery List</h4>
+                            <p>Milk, eggs, bread, coffee...</p>
+                            <div class="meta">
+                                <span>Jul 3, 6:00 PM</span>
+                                <span>8 words</span>
+                            </div>
+                        </div>
+                        <div style="position: absolute; bottom: 20px; right: 20px; width: 48px; height: 48px; border-radius: 24px; background: #0f4c75; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">+</div>
+                    </div>
+                </div>
+                <div class="screenshot-label">Smart Notes — Full-featured note taking</div>
+            </div>
+
+            <!-- Calculator Screenshot -->
+            <div class="screenshot">
+                <div class="screenshot-img">
+                    <div class="mock-calc">
+                        <div style="font-size: 12px; color: #555; text-align: right; padding: 0 20px;">123456</div>
+                        <div class="mock-calc-display">123456</div>
+                        <div class="mock-calc-grid">
+                            <div class="mock-calc-btn mock-btn-cl">AC</div>
+                            <div class="mock-calc-btn mock-btn-cl">±</div>
+                            <div class="mock-calc-btn mock-btn-cl">%</div>
+                            <div class="mock-calc-btn mock-btn-op">÷</div>
+                            <div class="mock-calc-btn mock-btn-num">7</div>
+                            <div class="mock-calc-btn mock-btn-num">8</div>
+                            <div class="mock-calc-btn mock-btn-num">9</div>
+                            <div class="mock-calc-btn mock-btn-op">×</div>
+                            <div class="mock-calc-btn mock-btn-num">4</div>
+                            <div class="mock-calc-btn mock-btn-num">5</div>
+                            <div class="mock-calc-btn mock-btn-num">6</div>
+                            <div class="mock-calc-btn mock-btn-op">-</div>
+                            <div class="mock-calc-btn mock-btn-num">1</div>
+                            <div class="mock-calc-btn mock-btn-num">2</div>
+                            <div class="mock-calc-btn mock-btn-num">3</div>
+                            <div class="mock-calc-btn mock-btn-op">+</div>
+                            <div class="mock-calc-btn mock-btn-num" style="grid-column: span 2;">0</div>
+                            <div class="mock-calc-btn mock-btn-num">.</div>
+                            <div class="mock-calc-btn mock-btn-eq">=</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-label">Calculator — Type PIN, press = to unlock</div>
+            </div>
+
+            <!-- Secret Workspace Screenshot -->
+            <div class="screenshot">
+                <div class="screenshot-img">
+                    <div class="mock-secret">
+                        <div class="mock-secret-header">Select a platform to open</div>
+                        <div style="padding: 0 8px;">
+                            <div style="background: #1c1c2e; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 6px; margin-bottom: 12px;">
+                                <span style="font-size: 11px;">🔍</span>
+                                <span style="font-size: 11px; color: #555;">Search apps...</span>
+                            </div>
+                        </div>
+                        <div class="mock-secret-grid">
+                            <div class="mock-app-icon" style="background: #1877F2;">📘</div>
+                            <div class="mock-app-icon" style="background: #0068FF;">💬</div>
+                            <div class="mock-app-icon" style="background: #E4405F;">📷</div>
+                            <div class="mock-app-icon" style="background: #25D366;">🟢</div>
+                            <div class="mock-app-icon" style="background: #0088CC;">✈️</div>
+                            <div class="mock-app-icon" style="background: #5865F2;">🎮</div>
+                            <div class="mock-app-icon" style="background: #000;">🎵</div>
+                            <div class="mock-app-icon" style="background: #FF4500;">🔴</div>
+                            <div class="mock-app-icon" style="background: #000;">🐦</div>
+                            <div class="mock-app-icon" style="background: #07C160;">🟩</div>
+                            <div class="mock-app-icon" style="background: #7B2FBE;">❤️</div>
+                            <div class="mock-app-icon" style="background: #2a2a3e; border: 1px dashed #444;">+</div>
+                        </div>
+                        <div style="margin-top: auto; background: rgba(20,20,30,0.95); border-radius: 14px; padding: 6px; display: flex; gap: 4px; justify-content: center;">
+                            <div style="width: 22px; height: 22px; border-radius: 7px; background: #1877F2; opacity: 0.4;"></div>
+                            <div style="width: 22px; height: 22px; border-radius: 7px; background: #25D366; opacity: 1; border: 2px solid #0f4c75;"></div>
+                            <div style="width: 22px; height: 22px; border-radius: 7px; background: #0088CC; opacity: 0.4;"></div>
+                        </div>
+                        <div style="background: #1c1c2e; border-radius: 4px; padding: 4px; text-align: center;">
+                            <span style="font-size: 9px; color: #555;">📢 Ad Banner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-label">Hidden Workspace — 30+ platforms in one place</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Get Smart Notes Today</h2>
+        <p>Free to download. Available on Google Play and App Store.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">
+                🤖 Get it on Google Play
+            </a>
+            <a href="#" class="btn btn-secondary">
+                 Download for iOS
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="company-name">3BX Tech Solutions</div>
+        <p>Building smart apps for everyday life</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">
+            © 2026 3BX Tech Solutions. All rights reserved.<br>
+            <a href="mailto:contact@3bxtech.com">contact@3bxtech.com</a>
+        </p>
+    </footer>
+
+</body>
+</html>
