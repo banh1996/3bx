@@ -3,578 +3,2205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3BX Tech Solutions - Smart Notes</title>
+    <title>3BX Tech Solutions | High-Performance, Privacy-First Mobile Apps</title>
+    <meta name="description" content="3BX Tech Solutions engineers cutting-edge, privacy-first, and ultra-fast mobile applications. Explore our ecosystem: Smart Notes Vault, MediaVault, NetDiscovery, RemoteTV, and OmniReader.">
+    <meta name="keywords" content="3BX, 3BX Tech Solutions, Smart Notes, MediaVault, NetDiscovery, RemoteTV, OmniReader, Privacy Vault, Media Encryption, Network Scanner, TV Remote, PDF Markdown Reader">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="3BX Tech Solutions | Engineering Privacy & Speed">
+    <meta property="og:description" content="Explore 3BX's suite of high-performance mobile apps: offline encryption, stealth vaults, network radar, universal TV control, and technical document reading.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="website-assets/products/mediavault/feature.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/svg+xml" href="website-assets/brand/logo.svg">
+    <link rel="apple-touch-icon" href="website-assets/brand/logo.svg">
+
     <style>
         :root {
-            --primary: #0f4c75;
-            --dark: #0a0a0a;
-            --light: #f5f5f5;
-            --accent: #ff9500;
-            --text: #333;
-            --gray: #666;
+            --bg-base: #060911;
+            --bg-surface: #0c121e;
+            --bg-card: rgba(18, 25, 38, 0.7);
+            --bg-card-hover: rgba(28, 38, 58, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(0, 242, 254, 0.4);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            
+            --primary: #00f2fe;
+            --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #3b82f6 50%, #8b5cf6 100%);
+            
+            --sn-accent: #f59e0b;
+            --sn-glow: rgba(245, 158, 11, 0.25);
+            
+            --mv-accent: #00f2fe;
+            --mv-glow: rgba(0, 242, 254, 0.25);
+            
+            --nd-accent: #10b981;
+            --nd-glow: rgba(16, 185, 129, 0.25);
+            
+            --rt-accent: #8b5cf6;
+            --rt-glow: rgba(139, 92, 246, 0.25);
+            
+            --or-accent: #f97316;
+            --or-glow: rgba(249, 115, 22, 0.25);
+            
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+            
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(0, 242, 254, 0.15);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: var(--text);
-            background: var(--light);
+        }
+
+        body {
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(0, 242, 254, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* Typography Utilities */
+        h1, h2, h3, h4, .font-heading {
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .sn-text { color: var(--sn-accent); }
+        .mv-text { color: var(--mv-accent); }
+        .nd-text { color: var(--nd-accent); }
+        .rt-text { color: var(--rt-accent); }
+        .or-text { color: var(--or-accent); }
+
+        /* Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(6, 9, 17, 0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 74px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo:hover .brand-icon {
+            transform: rotate(10deg) scale(1.05);
+        }
+
+        .brand-text {
+            font-size: 1.45rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+        }
+
+        .brand-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+            margin-left: 4px;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #060911;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border-color: var(--border-subtle);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-store {
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            background: #0f1624;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.85rem;
+            gap: 0.75rem;
+        }
+
+        .btn-store:hover {
+            border-color: var(--primary);
+            background: #151e32;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-store svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .btn-store .store-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.1;
+        }
+
+        .btn-store .store-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-store .store-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* Mobile Hamburger */
+        .mobile-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a2e 100%);
-            color: white;
-            min-height: 100vh;
+            padding: 180px 0 100px;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-pill .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            max-width: 950px;
+            margin: 0 auto 1.5rem;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            gap: 1.25rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Grid */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
             padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid var(--border-subtle);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Floating Ecosystem Preview */
+        .ecosystem-banner {
+            margin-top: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .eco-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 18px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .eco-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
+        }
+
+        .eco-card img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .eco-card span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Filter Switcher */
+        .filter-section {
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .filter-tabs {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-subtle);
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: #060911;
+            background: var(--text-main);
+        }
+
+        /* Product Showcase Section */
+        .products-container {
+            padding: 40px 0 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 140px;
+        }
+
+        .product-section {
+            scroll-margin-top: 100px;
+            position: relative;
+        }
+
+        .product-card-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
+            transition: border-color 0.3s ease;
         }
-        .hero::before {
+
+        .product-card-wrapper:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .product-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.12;
+            pointer-events: none;
+            top: -100px;
+            right: -100px;
+        }
+
+        .product-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .product-brand-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .product-icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
+            background: #000;
+        }
+
+        .product-icon-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        .badge-sn { background: rgba(245, 158, 11, 0.12); color: var(--sn-accent); border-color: rgba(245, 158, 11, 0.3); }
+        .badge-mv { background: rgba(0, 242, 254, 0.12); color: var(--mv-accent); border-color: rgba(0, 242, 254, 0.3); }
+        .badge-nd { background: rgba(16, 185, 129, 0.12); color: var(--nd-accent); border-color: rgba(16, 185, 129, 0.3); }
+        .badge-rt { background: rgba(139, 92, 246, 0.12); color: var(--rt-accent); border-color: rgba(139, 92, 246, 0.3); }
+        .badge-or { background: rgba(249, 115, 22, 0.12); color: var(--or-accent); border-color: rgba(249, 115, 22, 0.3); }
+
+        .product-title {
+            font-size: 2.4rem;
+            margin-bottom: 6px;
+        }
+
+        .product-tagline {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Product Content Grid */
+        .product-body-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .product-body-grid.reverse {
+            grid-template-columns: 0.9fr 1.1fr;
+        }
+
+        .product-body-grid.reverse .product-details {
+            order: 2;
+        }
+
+        .product-body-grid.reverse .product-visuals {
+            order: 1;
+        }
+
+        .product-desc {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            line-height: 1.75;
+        }
+
+        .feature-bullets {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-bullet {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .feature-bullet:hover {
+            transform: translateX(4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .feature-bullet-icon {
+            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-bullet-content h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+            color: var(--text-main);
+        }
+
+        .feature-bullet-content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Product Visuals & Screenshots */
+        .product-visuals {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hero-banner-preview {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #020617;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-banner-preview:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-banner-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .zoom-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(6, 9, 17, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+
+        /* Thumbnails Strip */
+        .screenshot-strip {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .screenshot-strip::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .screenshot-strip::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .thumb-item {
+            flex: 0 0 110px;
+            height: 195px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            position: relative;
+            background: #030712;
+            transition: all 0.2s ease;
+        }
+
+        .thumb-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 4px 6px;
+            background: rgba(0, 0, 0, 0.85);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Why 3BX / Pillars Section */
+        .why-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.2rem 1.75rem;
+            backdrop-filter: blur(16px);
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .pillar-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+
+        .pillar-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* Comparison Matrix Table */
+        .matrix-section {
+            padding: 60px 0 120px;
+        }
+
+        .matrix-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(16px);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .matrix-table th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+
+        .matrix-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .matrix-product-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .matrix-product-cell img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            color: var(--primary);
+        }
+
+        /* Contact & CTA Card */
+        .cta-section {
+            padding: 60px 0 100px;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 27, 75, 0.8) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 4.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .cta-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-            animation: pulse 8s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 800; }
-        .hero .tagline { font-size: 1.3rem; opacity: 0.9; margin-bottom: 0.5rem; }
-        .hero .app-name {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 2rem;
-            border-radius: 30px;
-            font-size: 1.5rem;
-            margin-top: 1rem;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,149,0,0.2);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.06) 0%, transparent 60%);
+            pointer-events: none;
         }
 
-        /* App Icon */
-        .app-icon-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
-            border-radius: 28px;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        .app-icon-container img { width: 100px; height: 100px; }
-
-        /* Sections */
-        .section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            color: var(--dark);
-            margin-bottom: 3rem;
-            font-weight: 700;
-        }
-
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-        .feature-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
+        .cta-card h2 {
+            font-size: 2.8rem;
             margin-bottom: 1rem;
         }
-        .feature-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--dark); }
-        .feature-card p { color: var(--gray); font-size: 0.95rem; }
 
-        /* Screenshots */
-        .screenshots {
-            background: var(--dark);
-            padding: 5rem 2rem;
+        .cta-card p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
         }
-        .screenshots .section-title { color: white; }
-        .screenshot-row {
+
+        .cta-contact-details {
             display: flex;
-            gap: 1.5rem;
             justify-content: center;
+            gap: 2rem;
             flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 2rem;
         }
-        .screenshot {
-            width: 280px;
-            background: #1a1a2e;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            transition: transform 0.3s;
-        }
-        .screenshot:hover { transform: scale(1.03); }
-        .screenshot-img {
-            width: 100%;
-            height: 500px;
-            background: #0a0a0a;
+
+        .contact-chip {
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .screenshot-label {
-            padding: 1rem;
-            text-align: center;
-            color: white;
-            font-weight: 600;
-        }
-
-        /* Mock UI for screenshots */
-        .mock-notes {
-            width: 90%;
-            height: 90%;
-            background: #f5f5f5;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .mock-note-card {
-            background: white;
-            border-radius: 10px;
-            padding: 12px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-        }
-        .mock-note-card .pin { color: #ff9500; font-size: 12px; }
-        .mock-note-card h4 { font-size: 14px; margin: 4px 0; color: #0a0a0a; }
-        .mock-note-card p { font-size: 11px; color: #666; }
-        .mock-note-card .meta { font-size: 9px; color: #999; margin-top: 4px; display: flex; justify-content: space-between; }
-
-        .mock-calc {
-            width: 90%;
-            height: 90%;
-            background: #0a0a0a;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
-        }
-        .mock-calc-display {
-            flex: 1;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            color: white;
-            font-size: 36px;
-            font-weight: 200;
-            padding: 20px;
-        }
-        .mock-calc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .mock-calc-btn {
-            height: 44px;
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-        }
-        .mock-btn-num { background: #1a1a2e; }
-        .mock-btn-op { background: #0f4c75; }
-        .mock-btn-eq { background: #ff9500; }
-        .mock-btn-cl { background: #2a2a3e; color: #ff9500; }
-
-        .mock-secret {
-            width: 90%;
-            height: 90%;
-            background: #0a0a0a;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .mock-secret-header { color: white; font-size: 14px; text-align: center; margin-top: 30px; }
-        .mock-secret-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            padding: 0 10px;
-        }
-        .mock-app-icon {
-            aspect-ratio: 1;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 22px;
+            border-radius: var(--radius-full);
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-subtle);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
-        /* CTA */
-        .cta {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a2e 100%);
-            color: white;
-            text-align: center;
-            padding: 5rem 2rem;
+        .contact-chip:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
-        .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .cta p { opacity: 0.9; margin-bottom: 2rem; }
-        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: transform 0.2s;
-        }
-        .btn:hover { transform: scale(1.05); }
-        .btn-primary { background: white; color: var(--primary); }
-        . btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
 
         /* Footer */
         footer {
-            background: var(--dark);
-            color: var(--gray);
-            text-align: center;
-            padding: 3rem 2rem;
+            background: #03050a;
+            border-top: 1px solid var(--border-subtle);
+            padding: 70px 0 35px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        footer .company-name { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-        footer a { color: var(--primary); text-decoration: none; }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-brand p {
+            max-width: 320px;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col h4 {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(4, 7, 13, 0.92);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 78vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            object-fit: contain;
+        }
+
+        .lightbox-caption {
+            margin-top: 14px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-body-grid, .product-body-grid.reverse {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .product-body-grid.reverse .product-details { order: 1; }
+            .product-body-grid.reverse .product-visuals { order: 2; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero .tagline { font-size: 1rem; }
-            .section { padding: 3rem 1rem; }
-            .section-title { font-size: 1.6rem; }
-            .screenshot { width: 100%; max-width: 320px; }
+            .navbar-inner { height: 64px; }
+            .nav-menu {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(6, 9, 17, 0.98);
+                backdrop-filter: blur(25px);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: 1px solid var(--border-subtle);
+                gap: 1.5rem;
+                display: none;
+            }
+            .nav-menu.mobile-open {
+                display: flex;
+            }
+            .mobile-toggle { display: block; }
+            .nav-cta { display: none; }
+            .hero { padding: 130px 0 70px; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero-subtitle { font-size: 1.05rem; }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.25rem;
+                padding: 1.5rem;
+            }
+            .stat-item:nth-child(2) { border-right: none; }
+            .product-card-wrapper { padding: 2rem 1.5rem; }
+            .product-title { font-size: 1.8rem; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 3rem 1.5rem; }
+            .cta-card h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="app-icon-container">
-                <img src="assets/icon.png" alt="Smart Notes App Icon">
+    <!-- Sticky Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="#" class="brand-logo">
+                <div class="brand-icon">
+                    <img src="website-assets/brand/logo.svg" alt="3BX Logo" style="width: 100%; height: 100%;">
+                </div>
+                <div>
+                    <span class="brand-text">3BX</span>
+                    <span class="brand-badge">Tech</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#smart-notes" class="nav-link">Smart Notes</a></li>
+                    <li><a href="#mediavault" class="nav-link">MediaVault</a></li>
+                    <li><a href="#netdiscovery" class="nav-link">NetDiscovery</a></li>
+                    <li><a href="#remotetv" class="nav-link">RemoteTV</a></li>
+                    <li><a href="#omnireader" class="nav-link">OmniReader</a></li>
+                    <li><a href="#why-3bx" class="nav-link">Why 3BX</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-cta">
+                <a href="#products" class="btn btn-primary">Explore Apps ↓</a>
             </div>
-            <div class="hero-badge">
-                <span>📱 Now on Android & iOS</span>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-pill">
+                <span class="dot"></span>
+                <span>3BX Software Ecosystem • 2026 Production Suite</span>
             </div>
-            <h1>3BX Tech Solutions</h1>
-            <p class="tagline">Building smart apps for everyday life</p>
-            <div class="app-name">📝 Smart Notes</div>
-            <p style="margin-top: 1.5rem; opacity: 0.8; max-width: 500px; margin-left: auto; margin-right: auto;">
-                A beautifully designed notes and calculator app with a secret — your private workspace
-                for social media, hidden behind a simple PIN.
+            
+            <h1>
+                Engineering <span class="gradient-text">Privacy, Speed, & Intelligence</span> for Everyday Life.
+            </h1>
+            
+            <p class="hero-subtitle">
+                From military-grade sub-second media encryption and disguised privacy vaults to real-time network radar and universal TV controls — 3BX builds beautiful, offline-first mobile software designed to put users in total control.
             </p>
-        </div>
-    </section>
 
-    <!-- About Smart Notes -->
-    <section class="section">
-        <h2 class="section-title">About Smart Notes</h2>
-        <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--gray); font-size: 1.1rem;">
-            Smart Notes is more than just a notebook. On the surface, it's a polished notes app
-            with a built-in calculator. But enter your secret 6-digit PIN on the calculator and press "=",
-            and a hidden workspace opens — giving you instant access to all your social platforms
-            in one private, secure place.
-        </p>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e3f2fd;">
-                    📝
-                </div>
-                <h3>Smart Notes</h3>
-                <p>Create, edit, pin, and organize notes with categories. Word count, search, and sort.
-                A fully functional notes app that's genuinely useful.</p>
+            <div class="hero-actions">
+                <a href="#products" class="btn btn-primary">Discover Our Apps ↓</a>
+                <a href="#why-3bx" class="btn btn-secondary">Our Engineering Philosophy</a>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #fff3e0;">
-                    🧮
+            <!-- Trust Stats -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-val">5</div>
+                    <div class="stat-lbl">Flagship Apps</div>
                 </div>
-                <h3>Working Calculator</h3>
-                <p>A real calculator with full arithmetic support. Type your secret PIN and press "="
-                to unlock the hidden workspace. No one will know.</p>
+                <div class="stat-item">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-lbl">Offline & Private</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val">21+</div>
+                    <div class="stat-lbl">Supported Languages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val">&lt; 1s</div>
+                    <div class="stat-lbl">Header Encryption</div>
+                </div>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e8f5e9;">
-                    🔒
-                </div>
-                <h3>Private Workspace</h3>
-                <p>Access 30+ social platforms — Facebook, Zalo, WhatsApp, Telegram, Instagram, Discord,
-                TikTok and more — all in one secure, hidden space.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #fce4ec;">
-                    🛡️
-                </div>
-                <h3>Auto-Hide Security</h3>
-                <p>The hidden workspace instantly disappears when you turn off your screen or switch apps.
-                No one can see what you were doing.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #f3e5f5;">
-                    🌍
-                </div>
-                <h3>21 Languages</h3>
-                <p>English, Vietnamese, Chinese, Japanese, Korean, Spanish, French, German, Hindi, Arabic,
-                and more. Auto-detects your device language.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e0f7fa;">
-                    ⚡
-                </div>
-                <h3>Fast & Lightweight</h3>
-                <p>Only 36MB. Built with React Native and Hermes engine for maximum speed.
-                Ad-blocker injected into WebViews for faster page loads.</p>
+            <!-- Ecosystem Bar -->
+            <div class="ecosystem-banner">
+                <a href="#smart-notes" class="eco-card">
+                    <img src="website-assets/products/smart-notes/icon.png" alt="Smart Notes">
+                    <span>Smart Notes</span>
+                </a>
+                <a href="#mediavault" class="eco-card">
+                    <img src="website-assets/products/mediavault/icon.png" alt="MediaVault">
+                    <span>MediaVault</span>
+                </a>
+                <a href="#netdiscovery" class="eco-card">
+                    <img src="website-assets/products/netdiscovery/icon.png" alt="NetDiscovery">
+                    <span>NetDiscovery</span>
+                </a>
+                <a href="#remotetv" class="eco-card">
+                    <img src="website-assets/products/remotetv/icon.png" alt="RemoteTV">
+                    <span>RemoteTV</span>
+                </a>
+                <a href="#omnireader" class="eco-card">
+                    <img src="website-assets/products/omnireader/icon.png" alt="OmniReader">
+                    <span>OmniReader</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Screenshots -->
-    <section class="screenshots">
-        <h2 class="section-title">See It In Action</h2>
-        <div class="screenshot-row">
-
-            <!-- Notes Screenshot -->
-            <div class="screenshot">
-                <div class="screenshot-img">
-                    <div class="mock-notes">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span style="font-size: 18px; font-weight: 700; color: #0a0a0a;">Notes</span>
-                            <span style="font-size: 11px; color: #888;">3 notes 🔧 🌐</span>
-                        </div>
-                        <div style="background: #e8e8e8; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
-                            <span style="font-size: 12px;">🔍</span>
-                            <span style="font-size: 12px; color: #555;">Search</span>
-                        </div>
-                        <div class="mock-note-card" style="border-left: 3px solid #ff9500;">
-                            <span class="pin">📌</span>
-                            <h4>📖 How to Use This App</h4>
-                            <p>Welcome to Smart Notes! This app has a hidden workspace...</p>
-                            <div class="meta">
-                                <span>Jul 5, 2:30 PM</span>
-                                <span>42 words</span>
-                            </div>
-                        </div>
-                        <div class="mock-note-card">
-                            <h4>Meeting Notes</h4>
-                            <p>Q3 planning discussion with the team...</p>
-                            <div class="meta">
-                                <span>Jul 4, 10:00 AM</span>
-                                <span>128 words</span>
-                            </div>
-                        </div>
-                        <div class="mock-note-card">
-                            <h4>Grocery List</h4>
-                            <p>Milk, eggs, bread, coffee...</p>
-                            <div class="meta">
-                                <span>Jul 3, 6:00 PM</span>
-                                <span>8 words</span>
-                            </div>
-                        </div>
-                        <div style="position: absolute; bottom: 20px; right: 20px; width: 48px; height: 48px; border-radius: 24px; background: #0f4c75; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">+</div>
-                    </div>
-                </div>
-                <div class="screenshot-label">Smart Notes — Full-featured note taking</div>
+    <!-- Filter Quick Switcher -->
+    <section class="filter-section" id="products">
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="filterCategory('all')">All Products (5)</button>
+                <button class="filter-btn" onclick="filterCategory('privacy')">🔐 Privacy & Security</button>
+                <button class="filter-btn" onclick="filterCategory('network')">📡 Network & Smart Home</button>
+                <button class="filter-btn" onclick="filterCategory('productivity')">📄 Productivity & Docs</button>
             </div>
+        </div>
+    </section>
 
-            <!-- Calculator Screenshot -->
-            <div class="screenshot">
-                <div class="screenshot-img">
-                    <div class="mock-calc">
-                        <div style="font-size: 12px; color: #555; text-align: right; padding: 0 20px;">123456</div>
-                        <div class="mock-calc-display">123456</div>
-                        <div class="mock-calc-grid">
-                            <div class="mock-calc-btn mock-btn-cl">AC</div>
-                            <div class="mock-calc-btn mock-btn-cl">±</div>
-                            <div class="mock-calc-btn mock-btn-cl">%</div>
-                            <div class="mock-calc-btn mock-btn-op">÷</div>
-                            <div class="mock-calc-btn mock-btn-num">7</div>
-                            <div class="mock-calc-btn mock-btn-num">8</div>
-                            <div class="mock-calc-btn mock-btn-num">9</div>
-                            <div class="mock-calc-btn mock-btn-op">×</div>
-                            <div class="mock-calc-btn mock-btn-num">4</div>
-                            <div class="mock-calc-btn mock-btn-num">5</div>
-                            <div class="mock-calc-btn mock-btn-num">6</div>
-                            <div class="mock-calc-btn mock-btn-op">-</div>
-                            <div class="mock-calc-btn mock-btn-num">1</div>
-                            <div class="mock-calc-btn mock-btn-num">2</div>
-                            <div class="mock-calc-btn mock-btn-num">3</div>
-                            <div class="mock-calc-btn mock-btn-op">+</div>
-                            <div class="mock-calc-btn mock-btn-num" style="grid-column: span 2;">0</div>
-                            <div class="mock-calc-btn mock-btn-num">.</div>
-                            <div class="mock-calc-btn mock-btn-eq">=</div>
+    <!-- Product Showcase Deep-Dives -->
+    <main class="products-container container">
+
+        <!-- 1. Smart Notes -->
+        <article class="product-section" id="smart-notes" data-category="privacy">
+            <div class="product-card-wrapper">
+                <div class="product-glow" style="background: var(--sn-accent);"></div>
+
+                <div class="product-header-row">
+                    <div class="product-brand-group">
+                        <div class="product-icon-box">
+                            <img src="website-assets/products/smart-notes/icon.png" alt="Smart Notes App Icon">
+                        </div>
+                        <div>
+                            <div class="product-badge-group">
+                                <span class="badge badge-sn">Privacy Vault</span>
+                                <span class="badge">Disguised Calculator</span>
+                                <span class="badge">SHA-256 PIN</span>
+                                <span class="badge">21 Languages</span>
+                            </div>
+                            <h2 class="product-title">Smart Notes</h2>
+                            <p class="product-tagline sn-text">Clean Notes Organizer with an Encrypted Secret Calculator Vault</p>
                         </div>
                     </div>
-                </div>
-                <div class="screenshot-label">Calculator — Type PIN, press = to unlock</div>
-            </div>
 
-            <!-- Secret Workspace Screenshot -->
-            <div class="screenshot">
-                <div class="screenshot-img">
-                    <div class="mock-secret">
-                        <div class="mock-secret-header">Select a platform to open</div>
-                        <div style="padding: 0 8px;">
-                            <div style="background: #1c1c2e; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 6px; margin-bottom: 12px;">
-                                <span style="font-size: 11px;">🔍</span>
-                                <span style="font-size: 11px; color: #555;">Search apps...</span>
+                    <div class="product-actions">
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">GET IT ON</span>
+                                <span class="store-title">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-title">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-body-grid">
+                    <div class="product-details">
+                        <p class="product-desc">
+                            On the surface, <strong>Smart Notes</strong> is a sleek, distraction-free note-taking application paired with a responsive everyday arithmetic calculator. But behind its polished exterior lies an encrypted secret: enter your personal 6-digit PIN on the calculator and press <code class="tech-tag">=</code> to unlock an isolated, multi-tab private workspace.
+                        </p>
+
+                        <div class="feature-bullets">
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">📝</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Full-Featured Everyday Notebook</h4>
+                                    <p>Organize with custom categories, color tags, pin crucial notes to top, instant keyword search, and live word counter.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🧮</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Stealth Calculator Disguise</h4>
+                                    <p>Fully functional everyday calculator with real calculation history. Only your hashed master PIN unlocks the secret vault.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🌐</div>
+                                <div class="feature-bullet-content">
+                                    <h4>30+ Integrated Social & Web Platforms</h4>
+                                    <p>Instant sandboxed access to Telegram, WhatsApp, Facebook, Zalo, Discord, X, Instagram, and Reddit in one unified app.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">⚡</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Zero-Reload IndexedStack Architecture</h4>
+                                    <p>Switch between multiple web tabs without reloads or losing form inputs, keeping all active sessions live in memory.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🛡️</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Instant Camouflage & Auto-Lock</h4>
+                                    <p>Workspace automatically locks and returns to the calculator the instant your device screen turns off or you switch apps.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="mock-secret-grid">
-                            <div class="mock-app-icon" style="background: #1877F2;"><img src="website-assets/icons/facebook.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #0068FF;"><img src="website-assets/icons/zalo.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #E4405F;"><img src="website-assets/icons/instagram.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #25D366;"><img src="website-assets/icons/whatsapp.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #0088CC;"><img src="website-assets/icons/telegram.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #5865F2;"><img src="website-assets/icons/discord.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #000;"><img src="website-assets/icons/tiktok.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #FF4500;"><img src="website-assets/icons/reddit.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #000;"><img src="website-assets/icons/x.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #07C160;"><img src="website-assets/icons/wechat.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #7B2FBE;"><img src="website-assets/icons/badoo.png" style="width:60%;height:60%;border-radius:8px;"></div>
-                            <div class="mock-app-icon" style="background: #2a2a3e; border: 1px dashed #444;">+</div>
+                    </div>
+
+                    <div class="product-visuals">
+                        <div class="hero-banner-preview" onclick="openLightbox('website-assets/products/smart-notes/feature.png', 'Smart Notes — Feature Graphic & Architecture')">
+                            <img src="website-assets/products/smart-notes/feature.png" alt="Smart Notes Feature Graphic">
+                            <div class="zoom-badge">🔍 Click to Expand</div>
                         </div>
-                        <div style="margin-top: auto; background: rgba(20,20,30,0.95); border-radius: 14px; padding: 6px; display: flex; gap: 4px; justify-content: center;">
-                            <img src="website-assets/icons/facebook.png" style="width:22px;height:22px;border-radius:7px;opacity:0.4;">
-                            <img src="website-assets/icons/whatsapp.png" style="width:22px;height:22px;border-radius:7px;border:2px solid #0f4c75;">
-                            <img src="website-assets/icons/telegram.png" style="width:22px;height:22px;border-radius:7px;opacity:0.4;">
-                        </div>
-                        <div style="background: #1c1c2e; border-radius: 4px; padding: 4px; text-align: center;">
-                            <span style="font-size: 9px; color: #555;">📢 Ad Banner</span>
+
+                        <div class="screenshot-strip">
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/smart-notes/screenshot-1.png', 'Smart Notes — Modern Note Taking')">
+                                <img src="website-assets/products/smart-notes/screenshot-1.png" alt="Note Taking">
+                                <div class="thumb-caption">Notes Screen</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/smart-notes/screenshot-2.png', 'Smart Notes — Functional Calculator Trigger')">
+                                <img src="website-assets/products/smart-notes/screenshot-2.png" alt="Calculator">
+                                <div class="thumb-caption">Calculator</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/smart-notes/screenshot-3.png', 'Smart Notes — Secret Workspace')">
+                                <img src="website-assets/products/smart-notes/screenshot-3.png" alt="Secret Workspace">
+                                <div class="thumb-caption">Hidden Vault</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/smart-notes/screenshot-4.png', 'Smart Notes — Multi-Tab Session Manager')">
+                                <img src="website-assets/products/smart-notes/screenshot-4.png" alt="Multi-tab">
+                                <div class="thumb-caption">Multi-Tab</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/smart-notes/screenshot-5.png', 'Smart Notes — Auto-Lock & Privacy Settings')">
+                                <img src="website-assets/products/smart-notes/screenshot-5.png" alt="Security Settings">
+                                <div class="thumb-caption">Security</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="screenshot-label">Hidden Workspace — 30+ platforms in one place</div>
+            </div>
+        </article>
+
+
+        <!-- 2. MediaVault -->
+        <article class="product-section" id="mediavault" data-category="privacy">
+            <div class="product-card-wrapper">
+                <div class="product-glow" style="background: var(--mv-accent);"></div>
+
+                <div class="product-header-row">
+                    <div class="product-brand-group">
+                        <div class="product-icon-box">
+                            <img src="website-assets/products/mediavault/icon.png" alt="MediaVault App Icon">
+                        </div>
+                        <div>
+                            <div class="product-badge-group">
+                                <span class="badge badge-mv">Cryptography</span>
+                                <span class="badge">AES-256-CTR</span>
+                                <span class="badge">PBKDF2 Derivation</span>
+                                <span class="badge">Sub-Second for 5GB+</span>
+                                <span class="badge">.mvlt Container</span>
+                            </div>
+                            <h2 class="product-title">MediaVault</h2>
+                            <p class="product-tagline mv-text">Ultra-Fast Sub-Second Encryption for Personal Photos, Videos & Audio</p>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">GET IT ON</span>
+                                <span class="store-title">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-title">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-body-grid reverse">
+                    <div class="product-details">
+                        <p class="product-desc">
+                            Traditional vault apps freeze your phone and overheat the battery when encrypting large 4K videos or music libraries. <strong>MediaVault</strong> introduces an innovative <em>Partial Header Encryption & Obfuscation</em> engine in a custom <code class="tech-tag">.mvlt</code> binary container. Large multi-gigabyte media files lock in milliseconds with zero CPU strain.
+                        </p>
+
+                        <div class="feature-bullets">
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">⚡</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Sub-Second Header Encryption</h4>
+                                    <p>Secures file signatures with AES-256-CTR and XOR-obfuscates raw bytes. Encrypts a 5GB 4K video instantaneously.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🔐</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Hardened PBKDF2 Key Derivation</h4>
+                                    <p>Derives strong encryption keys with 10,000 iterations and 16-byte random salts. Immune to rainbow-table and brute-force attacks.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🖼️</div>
+                                <div class="feature-bullet-content">
+                                    <h4>In-Memory Dynamic Previews</h4>
+                                    <p>Generates thumbnails and streams media directly in RAM. Zero unencrypted temporary files ever touch physical disk storage.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🎬</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Integrated Media Viewer Suite</h4>
+                                    <p>Includes a 360° pinch-to-zoom photo viewer, high-bitrate video player, and background audio player with scrubber.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">✨</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Dark Glassmorphic Aesthetic</h4>
+                                    <p>Deep navy (#0B0F19) canvas with vibrant cyan-blue accents and batch selection toolbar for instant import/export.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-visuals">
+                        <div class="hero-banner-preview" onclick="openLightbox('website-assets/products/mediavault/showcase.jpg', 'MediaVault — Encrypted Media Showcase')">
+                            <img src="website-assets/products/mediavault/showcase.jpg" alt="MediaVault Showcase">
+                            <div class="zoom-badge">🔍 Click to Expand</div>
+                        </div>
+
+                        <div class="screenshot-strip">
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/mediavault/screenshot-1.png', 'MediaVault — Secure Media Gallery Grid')">
+                                <img src="website-assets/products/mediavault/screenshot-1.png" alt="Home Vault">
+                                <div class="thumb-caption">Vault Grid</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/mediavault/screenshot-2.png', 'MediaVault — Sub-Second Fast Encryption')">
+                                <img src="website-assets/products/mediavault/screenshot-2.png" alt="Encryption Progress">
+                                <div class="thumb-caption">Fast Encrypt</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/mediavault/screenshot-3.png', 'MediaVault — Master Password & PBKDF2 Setup')">
+                                <img src="website-assets/products/mediavault/screenshot-3.png" alt="Master Password">
+                                <div class="thumb-caption">Master PIN</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/mediavault/screenshot-4.png', 'MediaVault — Fluid Media Viewer with 360 Zoom')">
+                                <img src="website-assets/products/mediavault/screenshot-4.png" alt="Fluid Viewer">
+                                <div class="thumb-caption">Viewer</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/mediavault/screenshot-5.png', 'MediaVault — 9-Language Localization')">
+                                <img src="website-assets/products/mediavault/screenshot-5.png" alt="Multilingual">
+                                <div class="thumb-caption">Languages</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
+        <!-- 3. NetDiscovery -->
+        <article class="product-section" id="netdiscovery" data-category="network">
+            <div class="product-card-wrapper">
+                <div class="product-glow" style="background: var(--nd-accent);"></div>
+
+                <div class="product-header-row">
+                    <div class="product-brand-group">
+                        <div class="product-icon-box">
+                            <img src="website-assets/products/netdiscovery/icon.png" alt="NetDiscovery App Icon">
+                        </div>
+                        <div>
+                            <div class="product-badge-group">
+                                <span class="badge badge-nd">Network Intelligence</span>
+                                <span class="badge">Live Radar</span>
+                                <span class="badge">OUI Vendor Lookup</span>
+                                <span class="badge">Port Scanner</span>
+                                <span class="badge">mDNS & UPnP</span>
+                            </div>
+                            <h2 class="product-title">NetDiscovery</h2>
+                            <p class="product-tagline nd-text">Advanced Wi-Fi & LAN Network Scanner with Deep Device Fingerprinting</p>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">GET IT ON</span>
+                                <span class="store-title">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-title">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-body-grid">
+                    <div class="product-details">
+                        <p class="product-desc">
+                            Who is on your Wi-Fi? <strong>NetDiscovery</strong> provides complete visibility into your local wireless and wired networks. Combining a high-speed ARP/ICMP scanner with automated IEEE OUI manufacturer resolution, port analysis, and multi-protocol discovery, NetDiscovery turns your mobile device into a professional network audit station.
+                        </p>
+
+                        <div class="feature-bullets">
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">📡</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Real-Time Radar Visualization</h4>
+                                    <p>Mesmerizing pulsing radar interface visualizes active subnet sweeps across 254+ IP ranges with live response counters.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🏷️</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Hardware OUI Vendor Recognition</h4>
+                                    <p>Identifies exact hardware manufacturers (Apple, Sony, Samsung, Google, Intel, Espressif) from device MAC addresses.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🔍</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Multi-Protocol Probing (mDNS & UPnP)</h4>
+                                    <p>Discovers advertised Bonjour services, UPnP friendly names, NetBIOS hostnames, and SNMP sysDescr system profiles.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🚪</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Open Port Diagnostic Scanner</h4>
+                                    <p>Probes common service ports (HTTP, HTTPS, SSH, RTSP, SMB) to diagnose vulnerabilities and verify server connectivity.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">⚡</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Instant Session Caching</h4>
+                                    <p>Scanned device topologies are cached locally for instant reference, enabling fast comparison between network sessions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-visuals">
+                        <div class="hero-banner-preview" onclick="openLightbox('website-assets/products/netdiscovery/feature.png', 'NetDiscovery — Network Radar & Scanner Banner')">
+                            <img src="website-assets/products/netdiscovery/feature.png" alt="NetDiscovery Feature Graphic">
+                            <div class="zoom-badge">🔍 Click to Expand</div>
+                        </div>
+
+                        <div class="screenshot-strip">
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/netdiscovery/screenshot-1.jpeg', 'NetDiscovery — Live Radar Sweep Interface')">
+                                <img src="website-assets/products/netdiscovery/screenshot-1.jpeg" alt="Radar Scan">
+                                <div class="thumb-caption">Radar Sweep</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/netdiscovery/screenshot-2.jpeg', 'NetDiscovery — Connected Devices & IP Map')">
+                                <img src="website-assets/products/netdiscovery/screenshot-2.jpeg" alt="Device List">
+                                <div class="thumb-caption">Device List</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/netdiscovery/screenshot-3.png', 'NetDiscovery — Subnet Analysis & Hostnames')">
+                                <img src="website-assets/products/netdiscovery/screenshot-3.png" alt="Subnet Details">
+                                <div class="thumb-caption">Subnet View</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/netdiscovery/screenshot-4.png', 'NetDiscovery — Device Deep Inspector & Open Ports')">
+                                <img src="website-assets/products/netdiscovery/screenshot-4.png" alt="Device Inspector">
+                                <div class="thumb-caption">Inspector</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/netdiscovery/screenshot-5.png', 'NetDiscovery — Real-time Ping Latency')">
+                                <img src="website-assets/products/netdiscovery/screenshot-5.png" alt="Ping Latency">
+                                <div class="thumb-caption">Latency Ping</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
+        <!-- 4. RemoteTV -->
+        <article class="product-section" id="remotetv" data-category="network">
+            <div class="product-card-wrapper">
+                <div class="product-glow" style="background: var(--rt-accent);"></div>
+
+                <div class="product-header-row">
+                    <div class="product-brand-group">
+                        <div class="product-icon-box">
+                            <img src="website-assets/products/remotetv/icon.png" alt="RemoteTV App Icon">
+                        </div>
+                        <div>
+                            <div class="product-badge-group">
+                                <span class="badge badge-rt">Smart Home</span>
+                                <span class="badge">Android TV v2</span>
+                                <span class="badge">mDNS Auto-Pair</span>
+                                <span class="badge">TLS Encryption</span>
+                                <span class="badge">Wake-on-LAN</span>
+                            </div>
+                            <h2 class="product-title">RemoteTV</h2>
+                            <p class="product-tagline rt-text">Universal Smart TV Controller with Instant Zero-Lag Pairing</p>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">GET IT ON</span>
+                                <span class="store-title">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-title">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-body-grid reverse">
+                    <div class="product-details">
+                        <p class="product-desc">
+                            Lost the living room remote again? <strong>RemoteTV</strong> turns your smartphone into a sleek, ultra-responsive smart controller. Utilizing the latest <strong>Android TV Remote Service (v2)</strong> protocol alongside mDNS auto-discovery and TLS socket security, RemoteTV delivers instant command response without plastic clutter or dead batteries.
+                        </p>
+
+                        <div class="feature-bullets">
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">⚡</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Zero-Configuration mDNS Discovery</h4>
+                                    <p>Automatically discovers TVs broadcasting <code class="tech-tag">_androidtvremote2._tcp</code> on your local Wi-Fi within seconds.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🔒</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Secure One-Time TLS Pairing</h4>
+                                    <p>Exchanges cryptographic pairing certificates with your TV once. Subsequent reconnections happen instantly without PINs.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🖱️</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Tactile Trackpad & Fluid Navigation</h4>
+                                    <p>Supports fluid swipe gestures, responsive D-Pad directions, rapid volume control, and direct numeric keypad inputs.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🔌</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Magic Packet Wake-on-LAN (WoL)</h4>
+                                    <p>Power on sleeping TVs straight from the app with built-in native UDP Magic Packet broadcasting over Wi-Fi.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">📺</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Universal Multi-Brand Compatibility</h4>
+                                    <p>Optimized for Sony Bravia, Xiaomi Mi TV, TCL, Chromecast with Google TV, Philips, Nvidia Shield, Roku, and LG webOS.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-visuals">
+                        <div class="hero-banner-preview" onclick="openLightbox('website-assets/products/remotetv/mockup.jpg', 'RemoteTV — App Interface Mockup')">
+                            <img src="website-assets/products/remotetv/mockup.jpg" alt="RemoteTV Store Mockup">
+                            <div class="zoom-badge">🔍 Click to Expand</div>
+                        </div>
+
+                        <div class="screenshot-strip">
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/remotetv/screenshot-1.jpg', 'RemoteTV — Network Scanning for Smart TVs')">
+                                <img src="website-assets/products/remotetv/screenshot-1.jpg" alt="Auto Scanning">
+                                <div class="thumb-caption">Scan Screen</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/remotetv/screenshot-2.jpg', 'RemoteTV — TV Discovery List & Status')">
+                                <img src="website-assets/products/remotetv/screenshot-2.jpg" alt="Discovered Devices">
+                                <div class="thumb-caption">Device List</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/remotetv/screenshot-3.jpg', 'RemoteTV — Full Remote Control & D-Pad')">
+                                <img src="website-assets/products/remotetv/screenshot-3.jpg" alt="Remote Controller">
+                                <div class="thumb-caption">Controller</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/remotetv/promo-1.jpg', 'RemoteTV — Universal Living Room Controller')">
+                                <img src="website-assets/products/remotetv/promo-1.jpg" alt="Living Room Showcase">
+                                <div class="thumb-caption">Showcase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
+        <!-- 5. OmniReader -->
+        <article class="product-section" id="omnireader" data-category="productivity">
+            <div class="product-card-wrapper">
+                <div class="product-glow" style="background: var(--or-accent);"></div>
+
+                <div class="product-header-row">
+                    <div class="product-brand-group">
+                        <div class="product-icon-box">
+                            <img src="website-assets/products/omnireader/icon.png" alt="OmniReader App Icon">
+                        </div>
+                        <div>
+                            <div class="product-badge-group">
+                                <span class="badge badge-or">Developer & Docs</span>
+                                <span class="badge">TXT up to 50MB</span>
+                                <span class="badge">PDF & Markdown</span>
+                                <span class="badge">Mermaid.js & UML</span>
+                                <span class="badge">Notepad++ Regex</span>
+                            </div>
+                            <h2 class="product-title">OmniReader</h2>
+                            <p class="product-tagline or-text">High-Performance Document Viewer with Native Diagrams & Regex Search</p>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">GET IT ON</span>
+                                <span class="store-title">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store">
+                            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-title">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-body-grid">
+                    <div class="product-details">
+                        <p class="product-desc">
+                            Designed specifically for developers, researchers, and technical power users, <strong>OmniReader</strong> bridges the gap between desktop reading tools and mobile hardware. Parse massive log files up to 50MB with zero memory choking, visualize interactive Mermaid.js and Draw.io architecture diagrams, and search with desktop-grade regex precision.
+                        </p>
+
+                        <div class="feature-bullets">
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">📊</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Native Mermaid.js & Draw.io Visualizer</h4>
+                                    <p>Detects flowcharts, sequence diagrams, Gantt charts, and UML vectors inside Markdown, rendering interactive touch-zoom vector charts.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🔍</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Notepad++ Style Deep Regex Search</h4>
+                                    <p>Background isolate thread searches millions of characters instantly. Jump directly to matching lines with keyword highlighting.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">🚀</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Massive 50MB TXT Lazy-Loading Buffer</h4>
+                                    <p>Bypasses full-memory allocation using chunk-buffering pipelines so server logs and raw code files scroll at a locked 120Hz.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">📚</div>
+                                <div class="feature-bullet-content">
+                                    <h4>All-In-One Universal Document Engine</h4>
+                                    <p>Seamlessly handles PDF with smooth pinch-to-zoom, Markdown tables, raw source code with syntax highlighting, and config files.</p>
+                                </div>
+                            </div>
+                            <div class="feature-bullet">
+                                <div class="feature-bullet-icon">👓</div>
+                                <div class="feature-bullet-content">
+                                    <h4>Eye-Care Reading Profiles</h4>
+                                    <p>Tailored reading modes including OLED True Black, warm Sepia, high-contrast Dark, and custom developer monospace typography.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-visuals">
+                        <div class="hero-banner-preview" onclick="openLightbox('website-assets/products/omnireader/feature.png', 'OmniReader — Universal Technical Document Reader')">
+                            <img src="website-assets/products/omnireader/feature.png" alt="OmniReader Feature Graphic">
+                            <div class="zoom-badge">🔍 Click to Expand</div>
+                        </div>
+
+                        <div class="screenshot-strip">
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/omnireader/screenshot-1.png', 'OmniReader — Document Dashboard & Storage Explorer')">
+                                <img src="website-assets/products/omnireader/screenshot-1.png" alt="Dashboard">
+                                <div class="thumb-caption">Dashboard</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/omnireader/screenshot-2.png', 'OmniReader — Notepad++ Line-by-Line Regex Search')">
+                                <img src="website-assets/products/omnireader/screenshot-2.png" alt="Regex Search">
+                                <div class="thumb-caption">Regex Search</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/omnireader/screenshot-3.png', 'OmniReader — Live Mermaid.js & UML Architecture Visualizer')">
+                                <img src="website-assets/products/omnireader/screenshot-3.png" alt="Mermaid Diagrams">
+                                <div class="thumb-caption">Diagrams</div>
+                            </div>
+                            <div class="thumb-item" onclick="openLightbox('website-assets/products/omnireader/screenshot-4.png', 'OmniReader — Rich Markdown & Syntax Highlighted Code')">
+                                <img src="website-assets/products/omnireader/screenshot-4.png" alt="Markdown Viewer">
+                                <div class="thumb-caption">Markdown</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Why 3BX / Pillars Section -->
+    <section class="why-section" id="why-3bx">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">The 3BX Advantage</span>
+                <h2 class="section-title">Built on Uncompromising Engineering Principles.</h2>
+                <p class="section-desc">
+                    We believe consumer software should be as fast as native desktop utilities and as secure as enterprise infrastructure — with zero surveillance capitalism.
+                </p>
             </div>
 
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon">🔒</div>
+                    <h3>Privacy-First Architecture</h3>
+                    <p>All encryption, parsing, and data manipulation occurs strictly on your device hardware. Zero telemetry tracking, zero background cloud leaks.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">⚡</div>
+                    <h3>Sub-Second Performance</h3>
+                    <p>Engineered with multi-threaded Dart Isolates, partial header encryption algorithms, and hardware-accelerated rendering pipelines for 120Hz response.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">📱</div>
+                    <h3>Unified Cross-Platform</h3>
+                    <p>Crafted with Flutter for pixel-perfect fidelity across Android, iOS, macOS, and Web with native feel and adaptive ergonomics.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">🌍</div>
+                    <h3>Global Localization</h3>
+                    <p>Every product is deeply internationalized across up to 21 native languages, adapting instantly to your phone's locale settings.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Comparison Matrix -->
+    <section class="matrix-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Ecosystem Overview</span>
+                <h2 class="section-title">Find the Right 3BX App for Your Needs</h2>
+            </div>
 
-    <!-- Platform Showcase -->
-    <section class="section">
-        <h2 class="section-title">30+ Platforms in One App</h2>
-        <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem; color: var(--gray);">
-            Access all your favorite social platforms from one hidden, secure workspace.
-        </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 800px; margin: 0 auto;">
-            <div style="width:56px;height:56px;border-radius:14px;background:#1877F2;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/facebook.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#0068FF;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/zalo.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#E4405F;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/instagram.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#25D366;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/whatsapp.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#0088CC;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/telegram.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#5865F2;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/discord.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#000;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/tiktok.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#FF4500;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/reddit.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#000;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/x.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#07C160;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/wechat.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#7B2FBE;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/badoo.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#FF4458;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/tinder.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#000;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/threads.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#34526F;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/tumblr.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#FF6B00;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/bigolive.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#9B59B6;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/litmatch.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#7360F2;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/viber.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#8B5CF6;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/lotus.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#1A1A2E;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/voz.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#0085FF;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/bluesky.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#06C755;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/line.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#B92B27;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/quora.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#FFFC00;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/snapchat.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#FFC629;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/bumble.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#A463BF;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/feeld.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#00B6F1;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/match.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#3A9DFF;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/okcupid.png" style="width:40px;height:40px;border-radius:8px;"></div>
-            <div style="width:56px;height:56px;border-radius:14px;background:#7AC143;display:flex;align-items:center;justify-content:center;"><img src="website-assets/icons/zoosk.png" style="width:40px;height:40px;border-radius:8px;"></div>
+            <div class="matrix-wrapper">
+                <div class="table-responsive">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Primary Focus</th>
+                                <th>Key Technology</th>
+                                <th>Security Model</th>
+                                <th>Offline Capability</th>
+                                <th>Platform</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="matrix-product-cell">
+                                        <img src="website-assets/products/smart-notes/icon.png" alt="Smart Notes">
+                                        <span>Smart Notes</span>
+                                    </div>
+                                </td>
+                                <td>Note Taking & Stealth Workspace</td>
+                                <td><span class="tech-tag">IndexedStack Tabs</span></td>
+                                <td>SHA-256 PIN + Camouflage Screen-Off</td>
+                                <td>100% Local Notes</td>
+                                <td>Android & iOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="matrix-product-cell">
+                                        <img src="website-assets/products/mediavault/icon.png" alt="MediaVault">
+                                        <span>MediaVault</span>
+                                    </div>
+                                </td>
+                                <td>Heavy Media File Protection</td>
+                                <td><span class="tech-tag">AES-256-CTR + .mvlt</span></td>
+                                <td>PBKDF2 10k Iterations + Dynamic RAM Decrypt</td>
+                                <td>100% Offline Cryptography</td>
+                                <td>Android & iOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="matrix-product-cell">
+                                        <img src="website-assets/products/netdiscovery/icon.png" alt="NetDiscovery">
+                                        <span>NetDiscovery</span>
+                                    </div>
+                                </td>
+                                <td>Wi-Fi & LAN Network Auditing</td>
+                                <td><span class="tech-tag">mDNS / UPnP / OUI</span></td>
+                                <td>Local Subnet Probing (No External API)</td>
+                                <td>Local LAN Discovery</td>
+                                <td>Android & iOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="matrix-product-cell">
+                                        <img src="website-assets/products/remotetv/icon.png" alt="RemoteTV">
+                                        <span>RemoteTV</span>
+                                    </div>
+                                </td>
+                                <td>Smart TV Remote & Navigation</td>
+                                <td><span class="tech-tag">Android TV Remote v2</span></td>
+                                <td>Encrypted TLS Socket Pairing</td>
+                                <td>Direct Local Wi-Fi Connection</td>
+                                <td>Android & iOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="matrix-product-cell">
+                                        <img src="website-assets/products/omnireader/icon.png" alt="OmniReader">
+                                        <span>OmniReader</span>
+                                    </div>
+                                </td>
+                                <td>Technical Docs & Vector Diagrams</td>
+                                <td><span class="tech-tag">Mermaid.js + PCRE Regex</span></td>
+                                <td>Sandboxed Local Scoped Storage</td>
+                                <td>100% Offline Reader</td>
+                                <td>Android & iOS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <p style="text-align: center; margin-top: 2rem; color: var(--gray); font-size: 0.9rem;">
-            + Add your own custom platforms with any URL
-        </p>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-        <h2>Get Smart Notes Today</h2>
-        <p>Free to download. Available on Google Play and App Store.</p>
-        <div class="cta-buttons">
-            <a href="#" class="btn btn-primary">
-                🤖 Get it on Google Play
-            </a>
-            <a href="#" class="btn btn-secondary">
-                 Download for iOS
-            </a>
+    <!-- Contact & Business CTA -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Build the Future With 3BX.</h2>
+                <p>
+                    Whether you are an individual seeking privacy-respecting tools, a developer looking to integrate, or a business interested in licensing our cryptographic and networking engines — we would love to connect.
+                </p>
+
+                <div class="hero-actions" style="margin-bottom: 0;">
+                    <a href="mailto:contact@3bxtech.com" class="btn btn-primary">Send Us an Email ✉️</a>
+                    <a href="#products" class="btn btn-secondary">Explore Products</a>
+                </div>
+
+                <div class="cta-contact-details">
+                    <a href="mailto:contact@3bxtech.com" class="contact-chip">
+                        <span>📧</span>
+                        <strong>General Inquiries:</strong> contact@3bxtech.com
+                    </a>
+                    <a href="mailto:support@3bxtech.com" class="contact-chip">
+                        <span>🛠️</span>
+                        <strong>App Support:</strong> support@3bxtech.com
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="company-name">3BX Tech Solutions</div>
-        <p>Building smart apps for everyday life</p>
-        <p style="margin-top: 1rem; font-size: 0.85rem;">
-            © 2026 3BX Tech Solutions. All rights reserved.<br>
-            <a href="mailto:contact@3bxtech.com">contact@3bxtech.com</a>
-        </p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="website-assets/brand/logo.svg" alt="3BX Logo" style="width: 32px; height: 32px;">
+                        <span style="font-size: 1.3rem; font-weight: 800; color: white;">3BX Tech Solutions</span>
+                    </div>
+                    <p>
+                        High-performance mobile utilities engineered for privacy, speed, and intelligence. Trusted by users across 150+ countries.
+                    </p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">
+                        Built with pride using Flutter, Dart & Hardware-Accelerated Native Primitives.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#smart-notes">Smart Notes Vault</a></li>
+                        <li><a href="#mediavault">MediaVault</a></li>
+                        <li><a href="#netdiscovery">NetDiscovery</a></li>
+                        <li><a href="#remotetv">RemoteTV</a></li>
+                        <li><a href="#omnireader">OmniReader</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#why-3bx">Why 3BX</a></li>
+                        <li><a href="#products">Ecosystem</a></li>
+                        <li><a href="#contact">Press & Inquiries</a></li>
+                        <li><a href="#contact">Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Security & Legal</h4>
+                    <ul>
+                        <li><a href="#why-3bx">Privacy Architecture</a></li>
+                        <li><a href="#why-3bx">No-Telemetry Commitment</a></li>
+                        <li><a href="#contact">Security Disclosures</a></li>
+                        <li><a href="#contact">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 3BX Tech Solutions. All rights reserved.
+                </div>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#home" style="color: var(--text-muted); text-decoration: none;">Back to Top ↑</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- Interactive Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightboxDirect()">&times;</button>
+            <img id="lightboxImg" src="" alt="Enlarged View">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Logic Scripts -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('mobile-open');
+        });
+
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('mobile-open');
+            });
+        });
+
+        // Navbar blur and shadow on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.style.background = 'rgba(6, 9, 17, 0.95)';
+                navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+            } else {
+                navbar.style.background = 'rgba(6, 9, 17, 0.82)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Category Filter Function
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const products = document.querySelectorAll('.product-section');
+            products.forEach(prod => {
+                if (category === 'all') {
+                    prod.style.display = 'block';
+                } else {
+                    if (prod.dataset.category === category) {
+                        prod.style.display = 'block';
+                    } else {
+                        prod.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Lightbox Functions
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        function openLightbox(src, caption) {
+            lightboxImg.src = src;
+            lightboxCaption.textContent = caption;
+            lightboxModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightboxDirect() {
+            lightboxModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeLightbox(e) {
+            if (e.target === lightboxModal) {
+                closeLightboxDirect();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+                closeLightboxDirect();
+            }
+        });
+    </script>
 </body>
 </html>
