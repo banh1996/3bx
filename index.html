@@ -299,6 +299,31 @@
             font-weight: 700;
         }
 
+        .btn-store-testing {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #6ee7b7;
+        }
+
+        .btn-store-testing:hover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.18);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-store-disabled {
+            opacity: 0.55;
+            cursor: default;
+        }
+
+        .btn-store-disabled:hover {
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.15);
+            background: #0f1624;
+            box-shadow: none;
+        }
+
+
         /* Mobile Hamburger */
         .mobile-toggle {
             display: none;
@@ -1326,17 +1351,24 @@
                     </div>
 
                     <div class="product-actions">
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/store/apps/details?id=com.worknotes.vault" target="_blank" rel="noopener noreferrer" class="btn btn-store">
                             <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
                             <div class="store-meta">
                                 <span class="store-sub">GET IT ON</span>
                                 <span class="store-title">Google Play</span>
                             </div>
                         </a>
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/apps/testing/com.worknotes.vault" target="_blank" rel="noopener noreferrer" class="btn btn-store btn-store-testing">
+                            <svg viewBox="0 0 24 24"><path d="M19 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3l3-7V5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v7l3 7zm-5-8V4h-4v7l-2.4 5.6A1 1 0 0 0 8.5 18h7a1 1 0 0 0 .9-1.4L14 11z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">EARLY ACCESS</span>
+                                <span class="store-title">Beta Testing</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store btn-store-disabled" title="iOS version in active development">
                             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
                             <div class="store-meta">
-                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-sub">COMING SOON</span>
                                 <span class="store-title">App Store</span>
                             </div>
                         </a>
@@ -1446,17 +1478,24 @@
                     </div>
 
                     <div class="product-actions">
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/store/apps/details?id=com.threebx.mediavault" target="_blank" rel="noopener noreferrer" class="btn btn-store">
                             <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
                             <div class="store-meta">
                                 <span class="store-sub">GET IT ON</span>
                                 <span class="store-title">Google Play</span>
                             </div>
                         </a>
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/apps/testing/com.threebx.mediavault" target="_blank" rel="noopener noreferrer" class="btn btn-store btn-store-testing">
+                            <svg viewBox="0 0 24 24"><path d="M19 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3l3-7V5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v7l3 7zm-5-8V4h-4v7l-2.4 5.6A1 1 0 0 0 8.5 18h7a1 1 0 0 0 .9-1.4L14 11z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">EARLY ACCESS</span>
+                                <span class="store-title">Beta Testing</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store btn-store-disabled" title="iOS version in active development">
                             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
                             <div class="store-meta">
-                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-sub">COMING SOON</span>
                                 <span class="store-title">App Store</span>
                             </div>
                         </a>
@@ -1566,17 +1605,24 @@
                     </div>
 
                     <div class="product-actions">
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/store/apps/details?id=com.threebx.networkdiscovery" target="_blank" rel="noopener noreferrer" class="btn btn-store">
                             <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
                             <div class="store-meta">
                                 <span class="store-sub">GET IT ON</span>
                                 <span class="store-title">Google Play</span>
                             </div>
                         </a>
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/apps/testing/com.threebx.networkdiscovery" target="_blank" rel="noopener noreferrer" class="btn btn-store btn-store-testing">
+                            <svg viewBox="0 0 24 24"><path d="M19 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3l3-7V5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v7l3 7zm-5-8V4h-4v7l-2.4 5.6A1 1 0 0 0 8.5 18h7a1 1 0 0 0 .9-1.4L14 11z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">EARLY ACCESS</span>
+                                <span class="store-title">Beta Testing</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store btn-store-disabled" title="iOS version in active development">
                             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
                             <div class="store-meta">
-                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-sub">COMING SOON</span>
                                 <span class="store-title">App Store</span>
                             </div>
                         </a>
@@ -1686,17 +1732,17 @@
                     </div>
 
                     <div class="product-actions">
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/store/apps/details?id=com.remotetv.remotetv" target="_blank" rel="noopener noreferrer" class="btn btn-store">
                             <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
                             <div class="store-meta">
                                 <span class="store-sub">GET IT ON</span>
                                 <span class="store-title">Google Play</span>
                             </div>
                         </a>
-                        <a href="#contact" class="btn btn-store">
+                        <a href="#contact" class="btn btn-store btn-store-disabled" title="iOS version in active development">
                             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
                             <div class="store-meta">
-                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-sub">COMING SOON</span>
                                 <span class="store-title">App Store</span>
                             </div>
                         </a>
@@ -1802,17 +1848,24 @@
                     </div>
 
                     <div class="product-actions">
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/store/apps/details?id=com.omnireader.app.omnireader" target="_blank" rel="noopener noreferrer" class="btn btn-store">
                             <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.44 2.44 0 0 1-.61-.92L3 21.05V2.95l.609-.136zM15.207 13.414l2.793 2.793-12.87 7.43a2.02 2.02 0 0 1-1.02.263l11.097-10.486zm0-2.828L4.11 0.1a2.02 2.02 0 0 1 1.02.263l12.87 7.43-2.793 2.793zm1.414 1.414l3.586-2.071c1.066-.615 1.066-1.624 0-2.239l-3.586-2.071-2.121 2.121 2.121 2.121v.139z"/></svg>
                             <div class="store-meta">
                                 <span class="store-sub">GET IT ON</span>
                                 <span class="store-title">Google Play</span>
                             </div>
                         </a>
-                        <a href="#contact" class="btn btn-store">
+                        <a href="https://play.google.com/apps/testing/com.omnireader.app.omnireader" target="_blank" rel="noopener noreferrer" class="btn btn-store btn-store-testing">
+                            <svg viewBox="0 0 24 24"><path d="M19 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3l3-7V5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v7l3 7zm-5-8V4h-4v7l-2.4 5.6A1 1 0 0 0 8.5 18h7a1 1 0 0 0 .9-1.4L14 11z"/></svg>
+                            <div class="store-meta">
+                                <span class="store-sub">EARLY ACCESS</span>
+                                <span class="store-title">Beta Testing</span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="btn btn-store btn-store-disabled" title="iOS version in active development">
                             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.83.93-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8.01 0 .02 0 .03 0 1.02 0 2.04-.52 2.67-1.28z"/></svg>
                             <div class="store-meta">
-                                <span class="store-sub">DOWNLOAD ON</span>
+                                <span class="store-sub">COMING SOON</span>
                                 <span class="store-title">App Store</span>
                             </div>
                         </a>
@@ -1958,68 +2011,78 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="matrix-product-cell">
-                                        <img src="website-assets/products/smart-notes/icon.png" alt="Smart Notes">
-                                        <span>Smart Notes</span>
-                                    </div>
+                                    <a href="#smart-notes" style="color:inherit;text-decoration:none;">
+                                        <div class="matrix-product-cell">
+                                            <img src="website-assets/products/smart-notes/icon.png" alt="Smart Notes">
+                                            <span>Smart Notes</span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td>Note Taking & Stealth Workspace</td>
                                 <td><span class="tech-tag">IndexedStack Tabs</span></td>
                                 <td>SHA-256 PIN + Camouflage Screen-Off</td>
                                 <td>100% Local Notes</td>
-                                <td>Android & iOS</td>
+                                <td><a href="https://play.google.com/store/apps/details?id=com.worknotes.vault" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;">Android (Play Store)</a><br><span style="font-size:0.75rem;color:var(--text-dim);">iOS Coming Soon</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="matrix-product-cell">
-                                        <img src="website-assets/products/mediavault/icon.png" alt="MediaVault">
-                                        <span>MediaVault</span>
-                                    </div>
+                                    <a href="#mediavault" style="color:inherit;text-decoration:none;">
+                                        <div class="matrix-product-cell">
+                                            <img src="website-assets/products/mediavault/icon.png" alt="MediaVault">
+                                            <span>MediaVault</span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td>Heavy Media File Protection</td>
                                 <td><span class="tech-tag">AES-256-CTR + .mvlt</span></td>
                                 <td>PBKDF2 10k Iterations + Dynamic RAM Decrypt</td>
                                 <td>100% Offline Cryptography</td>
-                                <td>Android & iOS</td>
+                                <td><a href="https://play.google.com/store/apps/details?id=com.threebx.mediavault" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;">Android (Play Store)</a><br><span style="font-size:0.75rem;color:var(--text-dim);">iOS Coming Soon</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="matrix-product-cell">
-                                        <img src="website-assets/products/netdiscovery/icon.png" alt="NetDiscovery">
-                                        <span>NetDiscovery</span>
-                                    </div>
+                                    <a href="#netdiscovery" style="color:inherit;text-decoration:none;">
+                                        <div class="matrix-product-cell">
+                                            <img src="website-assets/products/netdiscovery/icon.png" alt="NetDiscovery">
+                                            <span>NetDiscovery</span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td>Wi-Fi & LAN Network Auditing</td>
                                 <td><span class="tech-tag">mDNS / UPnP / OUI</span></td>
                                 <td>Local Subnet Probing (No External API)</td>
                                 <td>Local LAN Discovery</td>
-                                <td>Android & iOS</td>
+                                <td><a href="https://play.google.com/store/apps/details?id=com.threebx.networkdiscovery" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;">Android (Play Store)</a><br><span style="font-size:0.75rem;color:var(--text-dim);">iOS Coming Soon</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="matrix-product-cell">
-                                        <img src="website-assets/products/remotetv/icon.png" alt="RemoteTV">
-                                        <span>RemoteTV</span>
-                                    </div>
+                                    <a href="#remotetv" style="color:inherit;text-decoration:none;">
+                                        <div class="matrix-product-cell">
+                                            <img src="website-assets/products/remotetv/icon.png" alt="RemoteTV">
+                                            <span>RemoteTV</span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td>Smart TV Remote & Navigation</td>
                                 <td><span class="tech-tag">Android TV Remote v2</span></td>
                                 <td>Encrypted TLS Socket Pairing</td>
                                 <td>Direct Local Wi-Fi Connection</td>
-                                <td>Android & iOS</td>
+                                <td><a href="https://play.google.com/store/apps/details?id=com.remotetv.remotetv" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;">Android (Play Store)</a><br><span style="font-size:0.75rem;color:var(--text-dim);">iOS Coming Soon</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="matrix-product-cell">
-                                        <img src="website-assets/products/omnireader/icon.png" alt="OmniReader">
-                                        <span>OmniReader</span>
-                                    </div>
+                                    <a href="#omnireader" style="color:inherit;text-decoration:none;">
+                                        <div class="matrix-product-cell">
+                                            <img src="website-assets/products/omnireader/icon.png" alt="OmniReader">
+                                            <span>OmniReader</span>
+                                        </div>
+                                    </a>
                                 </td>
                                 <td>Technical Docs & Vector Diagrams</td>
                                 <td><span class="tech-tag">Mermaid.js + PCRE Regex</span></td>
                                 <td>Sandboxed Local Scoped Storage</td>
                                 <td>100% Offline Reader</td>
-                                <td>Android & iOS</td>
+                                <td><a href="https://play.google.com/store/apps/details?id=com.omnireader.app.omnireader" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;">Android (Play Store)</a><br><span style="font-size:0.75rem;color:var(--text-dim);">iOS Coming Soon</span></td>
                             </tr>
                         </tbody>
                     </table>
