@@ -229,7 +229,8 @@
         }
 
         .nav-item.dropdown:hover .dropdown-arrow,
-        .nav-item.dropdown.open .dropdown-arrow {
+        .nav-item.dropdown.open .dropdown-arrow,
+        .nav-item.dropdown.mobile-expanded .dropdown-arrow {
             transform: rotate(180deg);
         }
 
@@ -275,6 +276,14 @@
             visibility: visible;
             pointer-events: auto;
             transform: translateX(-50%) translateY(0);
+        }
+
+        /* Forced closed state when an item is clicked */
+        .nav-item.dropdown.menu-closed .dropdown-menu {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transform: translateX(-50%) translateY(8px) !important;
         }
 
         .dropdown-item {
@@ -2393,18 +2402,93 @@
 
     <!-- Interactive Logic Scripts -->
     <script>
-        // Mobile Navigation Toggle
+        // DOM Elements
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
+        const productsDropdown = document.getElementById('productsDropdown');
+        const dropdownToggle = document.getElementById('dropdownToggle');
 
+        // Mobile Navigation Toggle
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('mobile-open');
         });
 
-        // Close mobile nav when clicking a link
+        // Dropdown toggle on mobile (expand/collapse submenu)
+        if (dropdownToggle && productsDropdown) {
+            dropdownToggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    productsDropdown.classList.toggle('mobile-expanded');
+                }
+            });
+
+            // Reset menu-closed class on mouse hover
+            productsDropdown.addEventListener('mouseenter', () => {
+                productsDropdown.classList.remove('menu-closed');
+            });
+            productsDropdown.addEventListener('mouseleave', () => {
+                productsDropdown.classList.remove('menu-closed');
+            });
+        }
+
+        // Close mobile nav when clicking normal nav links
         document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.id === 'dropdownToggle') return;
             link.addEventListener('click', () => {
                 navMenu.classList.remove('mobile-open');
+            });
+        });
+
+        // Smooth scroll to targeted section with offset & visibility guarantee
+        function scrollToSection(targetId) {
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+
+            // If target is a product, ensure it's not hidden by an active filter
+            if (targetEl.classList.contains('product-section')) {
+                const products = document.querySelectorAll('.product-section');
+                products.forEach(p => p.style.display = 'block');
+
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                filterButtons.forEach((btn, idx) => {
+                    if (idx === 0) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+            }
+
+            const navHeight = 74;
+            const elementPosition = targetEl.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navHeight - 14;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // Universal on-page anchor smooth scroll handler
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const href = anchor.getAttribute('href');
+                if (!href || href === '#' || anchor.id === 'dropdownToggle') return;
+                
+                const targetId = href.substring(1);
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    e.preventDefault();
+                    scrollToSection(targetId);
+                    history.pushState(null, null, href);
+
+                    // Dismiss menus
+                    if (productsDropdown) {
+                        productsDropdown.classList.add('menu-closed');
+                        productsDropdown.classList.remove('mobile-expanded');
+                    }
+                    if (navMenu) {
+                        navMenu.classList.remove('mobile-open');
+                    }
+                }
             });
         });
 
@@ -2421,21 +2505,28 @@
         });
 
         // Category Filter Function
-        function filterCategory(category) {
+        function filterCategory(category, buttonEl) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            
+            if (buttonEl) {
+                buttonEl.classList.add('active');
+            } else if (window.event && window.event.target && window.event.target.classList.contains('filter-btn')) {
+                window.event.target.classList.add('active');
+            } else {
+                buttons.forEach(btn => {
+                    if (category === 'all' && btn.textContent.includes('All')) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
 
             const products = document.querySelectorAll('.product-section');
             products.forEach(prod => {
-                if (category === 'all') {
+                if (category === 'all' || prod.dataset.category === category) {
                     prod.style.display = 'block';
                 } else {
-                    if (prod.dataset.category === category) {
-                        prod.style.display = 'block';
-                    } else {
-                        prod.style.display = 'none';
-                    }
+                    prod.style.display = 'none';
                 }
             });
         }
